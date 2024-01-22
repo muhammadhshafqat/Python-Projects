@@ -1,0 +1,74 @@
+import datetime
+
+class BlogEntry:
+    def __init__(self, title, content, author):
+        self.title = title
+        self.content = content
+        self.author = author
+        self.timestamp = datetime.datetime.now()
+
+    def display_entry(self):
+        print(f"Title: {self.title}")
+        print(f"Content: {self.content}")
+        print(f"Author: {self.author}")
+        print(f"Timestamp: {self.timestamp}")
+        print()
+
+class BlogManager:
+    def __init__(self):
+        self.entries = []
+
+    def create_entry(self, title, content, author):
+        new_entry = BlogEntry(title, content, author)
+        self.entries.append(new_entry)
+        print("Blog entry created successfully.")
+
+    def display_entries(self):
+        if not self.entries:
+            print("No blog entries available.")
+        else:
+            print("Blog Entries:")
+            for entry in self.entries:
+                entry.display_entry()
+
+    def search_entries(self, keyword):
+        matching_entries = [entry for entry in self.entries if keyword.lower() in entry.title.lower() or keyword.lower() in entry.content.lower()]
+        if not matching_entries:
+            print(f"No entries matching the keyword '{keyword}' found.")
+        else:
+            print(f"Matching Entries for '{keyword}':")
+            for entry in matching_entries:
+                entry.display_entry()
+
+if __name__ == "__main__":
+    blog_manager = BlogManager()
+
+    while True:
+        print("\nOptions:")
+        print("1. Create Blog Entry")
+        print("2. Display All Blog Entries")
+        print("3. Search Blog Entries")
+        print("4. Exit")
+
+        choice = input("Enter your choice (1-4): ")
+
+        if choice == '1':
+            title = input("Enter entry title: ")
+            content = input("Enter entry content: ")
+            author = input("Enter entry author: ")
+
+            blog_manager.create_entry(title, content, author)
+
+        elif choice == '2':
+            blog_manager.display_entries()
+
+        elif choice == '3':
+            keyword = input("Enter keyword to search entries: ")
+            blog_manager.search_entries(keyword)
+
+        elif choice == '4':
+            print("Exiting the blog management system. Goodbye!")
+            break
+
+        else:
+            print("Invalid choice. Please enter a number between 1 and 4.")
