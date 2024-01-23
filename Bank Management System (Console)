@@ -1,92 +1,113 @@
-class BankAccount:
-    def __init__(self, account_number, account_holder, balance=0.0):
-        self.account_number = account_number
+class CustomerAccount:
+    def __init__(self, account_id, account_holder, balance=0.0):
+        self.account_id = account_id
         self.account_holder = account_holder
         self.balance = balance
 
-    def display_balance(self):
-        print(f"Account Number: {self.account_number}")
+    def display_account_info(self):
+        print(f"Account ID: {self.account_id}")
         print(f"Account Holder: {self.account_holder}")
         print(f"Balance: ${self.balance:.2f}")
 
-    def deposit(self, amount):
+    def deposit_funds(self, amount):
         if amount > 0:
             self.balance += amount
             print(f"Deposit of ${amount:.2f} successful.")
         else:
             print("Invalid deposit amount.")
 
-    def withdraw(self, amount):
+    def withdraw_funds(self, amount):
         if 0 < amount <= self.balance:
             self.balance -= amount
             print(f"Withdrawal of ${amount:.2f} successful.")
         else:
             print("Invalid withdrawal amount or insufficient funds.")
 
-class BankManagementSystem:
+class BankSystem:
     def __init__(self):
-        self.accounts = {}
+        self.customer_accounts = {}
 
-    def create_account(self, account_number, account_holder, initial_balance=0.0):
-        if account_number not in self.accounts:
-            new_account = BankAccount(account_number, account_holder, initial_balance)
-            self.accounts[account_number] = new_account
-            print("Account created successfully.")
+    def create_customer_account(self, account_id, account_holder, initial_balance=0.0):
+        if account_id not in self.customer_accounts:
+            new_customer_account = CustomerAccount(account_id, account_holder, initial_balance)
+            self.customer_accounts[account_id] = new_customer_account
+            print("Customer account created successfully.")
         else:
-            print("Account number already exists. Please choose a different account number.")
+            print("Account ID already exists. Please choose a different ID.")
 
-    def display_accounts(self):
-        if not self.accounts:
-            print("No accounts available.")
+    def display_customer_accounts(self):
+        if not self.customer_accounts:
+            print("No customer accounts available.")
         else:
-            print("Bank Accounts:")
-            for account_number, account in self.accounts.items():
-                print(f"Account Number: {account_number}")
+            print("Customer Accounts:")
+            for account_id, account in self.customer_accounts.items():
+                print(f"Account ID: {account_id}")
                 print(f"Account Holder: {account.account_holder}")
                 print(f"Balance: ${account.balance:.2f}")
                 print()
 
+    def transfer_funds(self, sender_id, receiver_id, amount):
+        if sender_id in self.customer_accounts and receiver_id in self.customer_accounts:
+            sender_account = self.customer_accounts[sender_id]
+            receiver_account = self.customer_accounts[receiver_id]
+
+            if amount > 0 and amount <= sender_account.balance:
+                sender_account.withdraw_funds(amount)
+                receiver_account.deposit_funds(amount)
+                print(f"Funds transfer of ${amount:.2f} from Account ID {sender_id} to Account ID {receiver_id} successful.")
+            else:
+                print("Invalid transfer amount or insufficient funds.")
+        else:
+            print("Invalid sender or receiver account ID.")
+
 if __name__ == "__main__":
-    bank_system = BankManagementSystem()
+    bank_system = BankSystem()
 
     while True:
         print("\nOptions:")
-        print("1. Create Bank Account")
-        print("2. Display Bank Accounts")
-        print("3. Deposit")
-        print("4. Withdraw")
-        print("5. Exit")
+        print("1. Create Customer Account")
+        print("2. Display Customer Accounts")
+        print("3. Deposit Funds")
+        print("4. Withdraw Funds")
+        print("5. Transfer Funds")
+        print("6. Exit")
 
-        choice = input("Enter your choice (1-5): ")
+        choice = input("Enter your choice (1-6): ")
 
         if choice == '1':
-            account_number = input("Enter account number: ")
+            account_id = input("Enter account ID: ")
             account_holder = input("Enter account holder name: ")
             initial_balance = float(input("Enter initial balance: "))
-            bank_system.create_account(account_number, account_holder, initial_balance)
+            bank_system.create_customer_account(account_id, account_holder, initial_balance)
 
         elif choice == '2':
-            bank_system.display_accounts()
+            bank_system.display_customer_accounts()
 
         elif choice == '3':
-            account_number = input("Enter account number: ")
+            account_id = input("Enter account ID: ")
             amount = float(input("Enter deposit amount: "))
-            if account_number in bank_system.accounts:
-                bank_system.accounts[account_number].deposit(amount)
+            if account_id in bank_system.customer_accounts:
+                bank_system.customer_accounts[account_id].deposit_funds(amount)
             else:
                 print("Account not found.")
 
         elif choice == '4':
-            account_number = input("Enter account number: ")
+            account_id = input("Enter account ID: ")
             amount = float(input("Enter withdrawal amount: "))
-            if account_number in bank_system.accounts:
-                bank_system.accounts[account_number].withdraw(amount)
+            if account_id in bank_system.customer_accounts:
+                bank_system.customer_accounts[account_id].withdraw_funds(amount)
             else:
                 print("Account not found.")
 
         elif choice == '5':
-            print("Exiting the bank management system. Goodbye!")
+            sender_id = input("Enter sender account ID: ")
+            receiver_id = input("Enter receiver account ID: ")
+            amount = float(input("Enter transfer amount: "))
+            bank_system.transfer_funds(sender_id, receiver_id, amount)
+
+        elif choice == '6':
+            print("Exiting the bank system. Goodbye!")
             break
 
         else:
-            print("Invalid choice. Please enter a number between 1 and 5.")
+            print("Invalid choice. Please enter a number between 1 and 6.")
