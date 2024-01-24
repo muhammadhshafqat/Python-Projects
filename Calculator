@@ -71,15 +71,12 @@ def calculator():
         if operator.lower() not in ['sin', 'cos', 'tan', 'sqrt', 'log', 'fact', 'exp', 'hyp']:
             num2 = float(input("Enter the second number: "))
 
-        # Perform calculation based on the operator
         last_result = perform_operation(num1, num2, operator, last_result, memory_values)
 
-        # Store result in memory with a key
         memory_key = input("Enter a memory key to store the result (or press Enter to skip): ")
         if memory_key:
             memory_values[memory_key] = last_result
 
-        # Ask if the user wants to perform another calculation
         another_calculation = input("Do you want to perform another calculation? (yes/no): ").lower()
         if another_calculation != 'yes':
             print("Exiting the calculator. Goodbye!")
