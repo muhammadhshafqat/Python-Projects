@@ -1,4 +1,5 @@
 import re
+import csv
 
 class Person:
     def __init__(self, full_name, phone_number, email_address):
@@ -67,23 +68,23 @@ class AddressBook:
             print(f"Name: {name}, Phone: {phone}, Email: {email}")
         print()
 
-    def export_contacts_to_file(self, file_name="contacts.txt"):
+    def export_contacts_to_file(self, file_name="contacts.csv"):
         try:
-            with open(file_name, "w") as file:
+            with open(file_name, mode='w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow(["Full Name", "Phone Number", "Email Address"])
                 for person in self.contacts:
-                    file.write(f"{person.full_name},{person.phone_number},{person.email_address}\n")
+                    writer.writerow([person.full_name, person.phone_number, person.email_address])
             print(f"Contacts exported to {file_name} successfully.")
         except Exception as e:
             print(f"Error exporting contacts: {e}")
 
-    def import_contacts_from_file(self, file_name="contacts.txt"):
+    def import_contacts_from_file(self, file_name="contacts.csv"):
         try:
-            with open(file_name, "r") as file:
-                lines = file.readlines()
-                for line in lines:
-                    data = line.strip().split(',')
-                    name, phone, email = data
-                    new_person = Person(name, phone, email)
+            with open(file_name, mode='r') as file:
+                reader = csv.DictReader(file)
+                for row in reader:
+                    new_person = Person(row['Full Name'], row['Phone Number'], row['Email Address'])
                     self.add_contact(new_person)
             print(f"Contacts imported from {file_name} successfully.")
         except Exception as e:
@@ -118,29 +119,41 @@ if __name__ == "__main__":
         choice = input("Enter your choice (1-11): ")
 
         if choice == '1':
-            # Existing code...
+            full_name = input("Enter full name: ")
+            phone_number = input("Enter phone number: ")
+            email_address = input("Enter email address: ")
+            new_person = Person(full_name, phone_number, email_address)
+            address_book.add_contact(new_person)
 
         elif choice == '2':
-            # Existing code...
+            address_book.display_contacts()
 
         elif choice == '3':
-            # Existing code...
+            search_term = input("Enter search term: ")
+            address_book.search_contacts(search_term)
 
         elif choice == '4':
-            # Existing code...
+            search_term = input("Enter search term to remove contacts: ")
+            address_book.remove_contact(search_term)
 
         elif choice == '5':
-            # Existing code...
+            search_term = input("Enter search term to update contacts: ")
+            new_info = {
+                'full_name': input("Enter new full name (press Enter to keep the same): "),
+                'phone_number': input("Enter new phone number (press Enter to keep the same): "),
+                'email_address': input("Enter new email address (press Enter to keep the same): "),
+            }
+            address_book.update_contact(search_term, new_info)
 
         elif choice == '6':
             address_book.get_unique_contacts()
 
         elif choice == '7':
-            file_name = input("Enter file name to export contacts (default: contacts.txt): ")
+            file_name = input("Enter file name to export contacts (default: contacts.csv): ")
             address_book.export_contacts_to_file(file_name)
 
         elif choice == '8':
-            file_name = input("Enter file name to import contacts from (default: contacts.txt): ")
+            file_name = input("Enter file name to import contacts from (default: contacts.csv): ")
             address_book.import_contacts_from_file(file_name)
 
         elif choice == '9':
@@ -154,4 +167,4 @@ if __name__ == "__main__":
             break
 
         else:
-            print("Invalid choice. Please enter a number between 1 and 11.")
+            print("Invalid choice")
