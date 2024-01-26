@@ -1,6 +1,6 @@
 import math
 
-def perform_operation(num1, num2, operator, last_result, memory_values):
+def perform_operation(num1, num2, operator, last_result, angle_unit, memory_values):
     result = None
 
     if operator == '+':
@@ -22,7 +22,7 @@ def perform_operation(num1, num2, operator, last_result, memory_values):
     elif operator.lower() == 'tan':
         result = math.tan(math.radians(num1)) if angle_unit == 'deg' else math.tan(num1)
     elif operator.lower() == 'sqrt':
-        result = math.sqrt(num1)
+        result = math.sqrt(num1) if num1 >= 0 else "Invalid input for square root"
     elif operator.lower() == 'log':
         result = math.log10(num1) if num1 > 0 else "Invalid input for logarithm"
     elif operator.lower() == 'fact':
@@ -37,6 +37,22 @@ def perform_operation(num1, num2, operator, last_result, memory_values):
         result = int(num1) | int(num2)
     elif operator == '^':
         result = int(num1) ^ int(num2)
+    elif operator.lower() == 'min':
+        result = min(num1, num2)
+    elif operator.lower() == 'max':
+        result = max(num1, num2)
+    elif operator.lower() == 'round':
+        result = round(num1, int(num2))
+    elif operator.lower() == 'ceil':
+        result = math.ceil(num1)
+    elif operator.lower() == 'floor':
+        result = math.floor(num1)
+    elif operator.lower() == 'abs':
+        result = abs(num1)
+    elif operator.lower() == 'pow':
+        result = pow(num1, num2)
+    elif operator.lower() == 'gcd':
+        result = math.gcd(int(num1), int(num2))
     else:
         result = "Invalid operator"
 
@@ -53,25 +69,34 @@ def calculator():
     angle_unit = 'deg'
     memory_values = {}
 
+    print("Welcome to the Advanced Calculator!\n")
+
     while True:
         # Get user input
-        num1 = float(input("Enter the first number: "))
+        try:
+            num1 = float(input("Enter the first number: "))
 
-        if last_result is not None:
-            print(f"Last result: {last_result}")
+            if last_result is not None:
+                print(f"Last result: {last_result}")
 
-        operator = input("Enter the operator (+, -, *, /, ** for exponentiation, % for modulus, "
-                         "M+ for adding to memory, M- for subtracting from memory, "
-                         "MR for recalling memory, MC for clearing memory, "
-                         "sin, cos, tan, sqrt for square root, log for logarithm, "
-                         "fact for factorial, exp for exponential, "
-                         "hyp for hypotenuse, "
-                         "& for bitwise AND, | for bitwise OR, ^ for bitwise XOR): ")
+            operator = input("Enter the operator (+, -, *, /, ** for exponentiation, % for modulus, "
+                             "M+ for adding to memory, M- for subtracting from memory, "
+                             "MR for recalling memory, MC for clearing memory, "
+                             "sin, cos, tan, sqrt for square root, log for logarithm, "
+                             "fact for factorial, exp for exponential, "
+                             "hyp for hypotenuse, "
+                             "& for bitwise AND, | for bitwise OR, ^ for bitwise XOR, "
+                             "min for minimum, max for maximum, "
+                             "round for rounding, ceil for ceiling, floor for flooring, "
+                             "abs for absolute value, pow for power, gcd for greatest common divisor): ")
 
-        if operator.lower() not in ['sin', 'cos', 'tan', 'sqrt', 'log', 'fact', 'exp', 'hyp']:
-            num2 = float(input("Enter the second number: "))
+            if operator.lower() not in ['sin', 'cos', 'tan', 'sqrt', 'log', 'fact', 'exp', 'hyp']:
+                num2 = float(input("Enter the second number: "))
+        except ValueError:
+            print("Invalid input. Please enter valid numerical values.")
+            continue
 
-        last_result = perform_operation(num1, num2, operator, last_result, memory_values)
+        last_result = perform_operation(num1, num2, operator, last_result, angle_unit, memory_values)
 
         memory_key = input("Enter a memory key to store the result (or press Enter to skip): ")
         if memory_key:
