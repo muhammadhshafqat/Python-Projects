@@ -1,0 +1,157 @@
+import re
+
+class Person:
+    def __init__(self, full_name, phone_number, email_address):
+        self.full_name = full_name
+        self.phone_number = phone_number
+        self.email_address = email_address
+
+    def display_info(self):
+        print(f"Name: {self.full_name}")
+        print(f"Phone: {self.phone_number}")
+        print(f"Email: {self.email_address}")
+        print()
+
+class AddressBook:
+    def __init__(self):
+        self.contacts = []
+
+    def add_contact(self, person):
+        self.contacts.append(person)
+        print("Contact added successfully.")
+
+    def display_contacts(self):
+        if not self.contacts:
+            print("Address book is empty.")
+        else:
+            print("Contacts:")
+            for person in self.contacts:
+                person.display_info()
+
+    def search_contacts(self, search_term):
+        matching_contacts = [person for person in self.contacts if re.search(search_term, person.full_name, re.IGNORECASE)]
+        if not matching_contacts:
+            print(f"No contacts found for '{search_term}'.")
+        else:
+            print(f"Matching contacts for '{search_term}':")
+            for person in matching_contacts:
+                person.display_info()
+
+    def remove_contact(self, search_term):
+        matching_contacts = [person for person in self.contacts if re.search(search_term, person.full_name, re.IGNORECASE)]
+        if not matching_contacts:
+            print(f"No contacts found for '{search_term}'.")
+        else:
+            print(f"Removing contacts for '{search_term}':")
+            for person in matching_contacts:
+                self.contacts.remove(person)
+                print(f"Contact '{person.full_name}' removed successfully.")
+
+    def update_contact(self, search_term, new_info):
+        matching_contacts = [person for person in self.contacts if re.search(search_term, person.full_name, re.IGNORECASE)]
+        if not matching_contacts:
+            print(f"No contacts found for '{search_term}'.")
+        else:
+            print(f"Updating contacts for '{search_term}':")
+            for person in matching_contacts:
+                person.full_name = new_info.get('full_name', person.full_name)
+                person.phone_number = new_info.get('phone_number', person.phone_number)
+                person.email_address = new_info.get('email_address', person.email_address)
+                print(f"Contact '{person.full_name}' updated successfully.")
+
+    def get_unique_contacts(self):
+        unique_contacts = list({(person.full_name, person.phone_number, person.email_address) for person in self.contacts})
+        print("Unique Contacts:")
+        for contact_info in unique_contacts:
+            name, phone, email = contact_info
+            print(f"Name: {name}, Phone: {phone}, Email: {email}")
+        print()
+
+    def export_contacts_to_file(self, file_name="contacts.txt"):
+        try:
+            with open(file_name, "w") as file:
+                for person in self.contacts:
+                    file.write(f"{person.full_name},{person.phone_number},{person.email_address}\n")
+            print(f"Contacts exported to {file_name} successfully.")
+        except Exception as e:
+            print(f"Error exporting contacts: {e}")
+
+    def import_contacts_from_file(self, file_name="contacts.txt"):
+        try:
+            with open(file_name, "r") as file:
+                lines = file.readlines()
+                for line in lines:
+                    data = line.strip().split(',')
+                    name, phone, email = data
+                    new_person = Person(name, phone, email)
+                    self.add_contact(new_person)
+            print(f"Contacts imported from {file_name} successfully.")
+        except Exception as e:
+            print(f"Error importing contacts: {e}")
+
+    def clear_all_contacts(self):
+        self.contacts = []
+        print("All contacts cleared.")
+
+    def get_contact_count(self):
+        contact_count = len(self.contacts)
+        print(f"Total number of contacts: {contact_count}")
+
+
+if __name__ == "__main__":
+    address_book = AddressBook()
+
+    while True:
+        print("\nOptions:")
+        print("1. Add Contact")
+        print("2. Display Contacts")
+        print("3. Search Contacts")
+        print("4. Remove Contact")
+        print("5. Update Contact")
+        print("6. Get Unique Contacts")
+        print("7. Export Contacts to File")
+        print("8. Import Contacts from File")
+        print("9. Clear All Contacts")
+        print("10. Get Contact Count")
+        print("11. Exit")
+
+        choice = input("Enter your choice (1-11): ")
+
+        if choice == '1':
+            # Existing code...
+
+        elif choice == '2':
+            # Existing code...
+
+        elif choice == '3':
+            # Existing code...
+
+        elif choice == '4':
+            # Existing code...
+
+        elif choice == '5':
+            # Existing code...
+
+        elif choice == '6':
+            address_book.get_unique_contacts()
+
+        elif choice == '7':
+            file_name = input("Enter file name to export contacts (default: contacts.txt): ")
+            address_book.export_contacts_to_file(file_name)
+
+        elif choice == '8':
+            file_name = input("Enter file name to import contacts from (default: contacts.txt): ")
+            address_book.import_contacts_from_file(file_name)
+
+        elif choice == '9':
+            address_book.clear_all_contacts()
+
+        elif choice == '10':
+            address_book.get_contact_count()
+
+        elif choice == '11':
+            print("Exiting the contact management system. Goodbye!")
+            break
+
+        else:
+            print("Invalid choice. Please enter a number between 1 and 11.")
