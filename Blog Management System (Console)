@@ -49,9 +49,7 @@ if __name__ == "__main__":
         print("2. Display All Blog Entries")
         print("3. Search Blog Entries")
         print("4. Exit")
-
         choice = input("Enter your choice (1-4): ")
-
         if choice == '1':
             title = input("Enter entry title: ")
             content = input("Enter entry content: ")
