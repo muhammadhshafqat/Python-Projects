@@ -1,5 +1,4 @@
 import random
-
 def get_user_choice():
     print("1. Stone")
     print("2. Paper")
