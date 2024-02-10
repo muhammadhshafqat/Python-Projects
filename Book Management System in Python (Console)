@@ -1,86 +1,111 @@
-class BookItem:
-    def __init__(self, title, author, price, quantity_in_stock):
+class Book:
+    def __init__(self, title, author, price, stock_quantity):
         self.title = title
         self.author = author
         self.price = price
-        self.quantity_in_stock = quantity_in_stock
+        self.stock_quantity = stock_quantity
 
     def display_info(self):
         print(f"Title: {self.title}")
         print(f"Author: {self.author}")
         print(f"Price: ${self.price:.2f}")
-        print(f"Quantity in Stock: {self.quantity_in_stock}")
+        print(f"Quantity in Stock: {self.stock_quantity}")
         print()
 
-class BookInventory:
-    def __init__(self):
-        self.book_items = []
 
-    def add_book_item(self, book_item):
-        self.book_items.append(book_item)
-        print("Book item added to the inventory.")
+class Inventory:
+    def __init__(self):
+        self.books = []
+
+    def add_book(self, book):
+        self.books.append(book)
+        print("Book added to the inventory.")
 
     def display_inventory(self):
-        if not self.book_items:
+        if not self.books:
             print("Inventory is empty.")
         else:
             print("Book Inventory:")
-            for book_item in self.book_items:
-                book_item.display_info()
+            for book in self.books:
+                book.display_info()
 
-    def find_book_item(self, title):
-        for book_item in self.book_items:
-            if book_item.title.lower() == title.lower():
-                return book_item
+    def find_book(self, title):
+        for book in self.books:
+            if book.title.lower() == title.lower():
+                return book
         return None
 
     def sell_book(self, title, quantity):
-        book_item = self.find_book_item(title)
-        if book_item and book_item.quantity_in_stock >= quantity:
-            book_item.quantity_in_stock -= quantity
+        book = self.find_book(title)
+        if book and book.stock_quantity >= quantity:
+            book.stock_quantity -= quantity
             print(f"Book '{title}' sold successfully.")
         else:
             print(f"Book '{title}' not found or insufficient stock.")
 
-class BookShop:
-    def __init__(self):
-        self.inventory = BookInventory()
 
-    def add_new_book(self, title, author, price, quantity_in_stock):
-        new_book_item = BookItem(title, author, price, quantity_in_stock)
-        self.inventory.add_book_item(new_book_item)
+class Bookstore:
+    def __init__(self):
+        self.inventory = Inventory()
+
+    def add_new_book(self, title, author, price, stock_quantity):
+        new_book = Book(title, author, price, stock_quantity)
+        self.inventory.add_book(new_book)
+
+    def restock_book(self, title, quantity):
+        book = self.inventory.find_book(title)
+        if book:
+            book.stock_quantity += quantity
+            print(f"Book '{title}' restocked successfully.")
+        else:
+            print(f"Book '{title}' not found.")
+
+    def get_total_inventory_value(self):
+        total_value = sum(book.price * book.stock_quantity for book in self.inventory.books)
+        return total_value
+
 
 if __name__ == "__main__":
-    book_shop = BookShop()
+    bookstore = Bookstore()
 
     while True:
         print("\nOptions:")
         print("1. Add New Book to Inventory")
         print("2. Display Book Inventory")
         print("3. Sell Book")
-        print("4. Exit")
+        print("4. Restock Book")
+        print("5. Calculate Total Inventory Value")
+        print("6. Exit")
 
-        choice = input("Enter your choice (1-4): ")
+        choice = input("Enter your choice (1-6): ")
 
         if choice == '1':
             title = input("Enter book title: ")
             author = input("Enter author name: ")
             price = float(input("Enter book price: "))
-            quantity = int(input("Enter quantity in stock: "))
-            
-            book_shop.add_new_book(title, author, price, quantity)
+            stock_quantity = int(input("Enter quantity in stock: "))
+            bookstore.add_new_book(title, author, price, stock_quantity)
 
         elif choice == '2':
-            book_shop.inventory.display_inventory()
+            bookstore.inventory.display_inventory()
 
         elif choice == '3':
             title = input("Enter book title to sell: ")
             quantity = int(input("Enter quantity to sell: "))
-            book_shop.inventory.sell_book(title, quantity)
+            bookstore.inventory.sell_book(title, quantity)
 
         elif choice == '4':
-            print("Exiting the Book Shop Management System. Goodbye!")
+            title = input("Enter book title to restock: ")
+            quantity = int(input("Enter quantity to restock: "))
+            bookstore.restock_book(title, quantity)
+
+        elif choice == '5':
+            total_value = bookstore.get_total_inventory_value()
+            print(f"Total Inventory Value: ${total_value:.2f}")
+
+        elif choice == '6':
+            print("Exiting the Bookstore Management System. Goodbye!")
             break
 
         else:
-            print("Invalid choice. Please enter a number between 1 and 4.")
+            print("Invalid choice. Please enter a number between 1 and 6.")
