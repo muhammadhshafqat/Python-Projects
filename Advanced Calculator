@@ -1,5 +1,4 @@
 import math
-
 def perform_operation(num1, num2, operator, last_result, angle_unit, memory_values):
     result = None
 
