@@ -3,7 +3,6 @@ class CustomerAccount:
         self.account_id = account_id
         self.account_holder = account_holder
         self.balance = balance
-
     def display_account_info(self):
         print(f"Account ID: {self.account_id}")
         print(f"Account Holder: {self.account_holder}")
