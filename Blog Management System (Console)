@@ -1,5 +1,4 @@
 import datetime
-
 class BlogEntry:
     def __init__(self, title, content, author):
         self.title = title
