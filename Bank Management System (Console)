@@ -21,7 +21,6 @@ class CustomerAccount:
             print(f"Withdrawal of ${amount:.2f} successful.")
         else:
             print("Invalid withdrawal amount or insufficient funds.")
-
 class BankSystem:
     def __init__(self):
         self.customer_accounts = {}
