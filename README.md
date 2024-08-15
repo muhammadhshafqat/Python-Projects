@@ -2,82 +2,99 @@
 
 Welcome to my Python Projects repository! Here, you'll discover a collection of Python projects designed to enrich your programming skills. Each project covers various aspects of Python development, from fundamental concepts to more advanced functionalities.
 
-# Advanced Calculator
+## Address Book System
+
+Welcome to the Address Book System, a comprehensive Python application designed to manage your contacts efficiently. This system allows you to store, search, update, and manage contact information seamlessly.
+
+### Features:
+
+1. **Contacts Management:**
+   - Initialize contacts list.
+   - Add a new contact.
+   - Display all contacts.
+   - Search for contacts by name.
+   - Remove a contact by name.
+   - Update contact information.
+   - Retrieve unique contacts.
+
+2. **File Operations:**
+   - Export contacts to a CSV file.
+   - Import contacts from a CSV file.
+   - Clear all contacts.
+   - Count total contacts.
+
+## Advanced Calculator
 
 Welcome to the Advanced Calculator, a versatile Python console application designed for your mathematical calculations. This calculator not only supports basic arithmetic but also provides advanced features for a wide range of mathematical operations.
 
-## Features:
+### Features:
 
-1. **Basic Arithmetic Operations:**
-   - Addition, subtraction, multiplication, and division.
+1. **Arithmetic Operations:**
+   - Basic arithmetic operations (addition, subtraction, multiplication, division).
+   - Exponentiation and modulus operations.
 
-2. **Exponentiation Operator:**
-   - Use `**` for exponentiation.
+2. **Mathematical Functions:**
+   - Trigonometric functions (sin, cos, tan).
+   - Square root and logarithm calculations.
+   - Factorial and exponential functions.
+   - Hypotenuse calculation.
 
-3. **Modulus Operator:**
-   - Find the remainder using `%`.
+3. **Advanced Operations:**
+   - Bitwise operations (AND, OR, XOR).
+   - Minimum and maximum functions.
+   - Rounding, ceiling, and floor operations.
+   - Absolute value and power functions.
+   - Greatest common divisor calculation.
 
-4. **Trigonometric Functions:**
-   - Calculate sine, cosine, and tangent. Supports degree and radian units.
+4. **Memory Management:**
+   - Store and recall memory values.
 
-5. **Square Root:**
-   - Use `sqrt` to find the square root.
+## Bank System
 
-6. **Logarithmic Functions:**
-   - Compute the logarithm using `log`.
+Welcome to the Bank System, a Python application for managing customer accounts, deposits, withdrawals, and transfers. This system simplifies banking operations with an easy-to-use interface.
 
-7. **Factorial:**
-   - Find the factorial of a non-negative integer using `fact`.
+### Features:
 
-8. **Exponential Function:**
-   - Calculate the exponential function using `exp`.
+1. **Account Management:**
+   - Create a new customer account.
+   - Display customer accounts.
 
-9. **Hypotenuse Calculation:**
-   - Find the hypotenuse of a right-angled triangle using `hyp`.
+2. **Financial Transactions:**
+   - Deposit funds into an account.
+   - Withdraw funds from an account.
+   - Transfer funds between accounts.
 
-10. **Bitwise Operations:**
-    - Perform bitwise AND (`&`), OR (`|`), and XOR (`^`) operations.
+## Blog Management System
 
-11. **Additional Mathematical Functions:**
-    - Minimum (`min`) and maximum (`max`) of two numbers.
-    - Round a number (`round`), ceiling (`ceil`), and floor (`floor`) functions.
-    - Absolute value (`abs`), power (`pow`), and greatest common divisor (`gcd`).
+Welcome to the Blog Management System, a Python project that enables you to manage your blog entries effortlessly. Create, display, and search your blog content with ease.
 
-12. **Memory Functions:**
-    - Store and recall results with `M+`, `M-`, `MR`, and `MC`.
+### Features:
 
-# Address Book Management System
+1. **Blog Management:**
+   - Create a new blog entry.
+   - Display all blog entries.
+   - Search blog entries by keyword.
 
-The Address Book Management System is a Python console application that allows users to manage their contacts efficiently. This system provides features such as adding, displaying, searching, updating, and removing contacts. Additionally, it supports exporting and importing contacts from/to a CSV file.
+## Bookstore Inventory System
 
-## Features:
+Welcome to the Bookstore Inventory System, a Python application designed to manage book inventories for bookstores. This system helps you track inventory, sales, and restocking needs.
 
-1. **Add Contact:**
-   - Users can add new contacts by providing full name, phone number, and email address.
+### Features:
 
-2. **Display Contacts:**
-   - View a list of all contacts with their information.
+1. **Inventory Management:**
+   - Add a new book to inventory.
+   - Display book inventory.
+   - Sell a book from inventory.
+   - Restock a book in inventory.
+   - Calculate total inventory value.
 
-3. **Search Contacts:**
-   - Search for contacts based on a specified term (case-insensitive).
+## Stone, Paper, Scissors Game
 
-4. **Remove Contact:**
-   - Remove contacts matching a specified term.
+Welcome to the Stone, Paper, Scissors Game, a fun Python console application where you can play the classic game against the computer. Enjoy the challenge of this timeless game.
 
-5. **Update Contact:**
-   - Update contact information based on a specified term.
+### Features:
 
-6. **Get Unique Contacts:**
-   - Display a list of unique contacts, eliminating duplicates.
-
-7. **Export Contacts to File (CSV):**
-   - Save contacts to a CSV file for external use.
-
-8. **Import Contacts from File (CSV):**
-   - Load contacts from a CSV file into the system.
-
-9. **Clear All Contacts:**
-   - Delete all contacts in the address book.
-
-10. **Get Contact Count:**
-    - View the total number of contacts in the address book.
+1. **Gameplay:**
+   - User choice input.
+   - Random computer choice.
+   - Determine winner based on game rules.
